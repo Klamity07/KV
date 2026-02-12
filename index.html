@@ -49,7 +49,7 @@
     }
 
     .section {
-      height: 100vh;
+      min-height: 100vh;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -57,7 +57,7 @@
       align-items: center;
       scroll-snap-align: start;
       position: relative;
-      padding: 2rem;
+      padding: 4rem 2rem; /* Increased padding for larger cards */
     }
 
     .hero-container {
@@ -88,6 +88,7 @@
       cursor: pointer;
       color: var(--accent);
       animation: bounce 2s infinite;
+      z-index: 10;
     }
 
     @keyframes bounce {
@@ -96,52 +97,57 @@
       60% { transform: translateY(-7px); }
     }
 
-    /* --- UPDATED POLAROIDS (20% Larger) --- */
+    /* --- UPDATED POLAROIDS (50% Larger than before) --- */
     .polaroid-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 30px;
-      max-width: 1200px;
+      gap: 40px; /* Increased gap for larger cards */
+      max-width: 1400px; /* Wider container for bigger cards */
+      padding: 2rem;
     }
 
     .polaroid {
       background: #fff;
-      padding: 1rem 1rem 3.5rem;
+      padding: 1.25rem 1.25rem 4.5rem; /* Proportional padding increase */
       border-radius: 0.25rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.1);
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
-      width: 240px; /* Increased from 200px */
+      width: 360px; /* 50% increase from 240px */
       filter: grayscale(100%);
       cursor: pointer;
     }
 
-    /* Hover effect: Scale up and tilt slightly to the right */
     .polaroid:hover { 
       filter: grayscale(0%); 
-      transform: scale(1.1) rotate(2deg) !important; 
+      transform: scale(1.05) rotate(2deg) !important; /* Slightly lower scale to prevent clipping */
       z-index: 50; 
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.2);
     }
 
     .photo { width: 100%; aspect-ratio: 1/1; background: #eee; display: grid; place-items: center; overflow: hidden; }
-    .caption { margin-top: 1rem; text-align: center; font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: #444; }
+    .caption { 
+        margin-top: 1.5rem; 
+        text-align: center; 
+        font-family: 'Great Vibes', cursive; 
+        font-size: 2.2rem; /* Larger font for larger card */
+        color: #444; 
+    }
     
-    /* Static rotations */
-    .p1 { transform: rotate(-4deg); }
-    .p2 { transform: rotate(3deg); }
-    .p3 { transform: rotate(-2deg); }
-    .p4 { transform: rotate(5deg); }
-    .p5 { transform: rotate(-5deg); }
+    .p1 { transform: rotate(-3deg); }
+    .p2 { transform: rotate(2deg); }
+    .p3 { transform: rotate(-1deg); }
+    .p4 { transform: rotate(4deg); }
+    .p5 { transform: rotate(-4deg); }
 
     .content-card {
       background: rgba(255, 255, 255, 0.35); 
-      padding: 3rem;
+      padding: 3.5rem;
       border-radius: 2rem;
       text-align: center;
       backdrop-filter: blur(8px);
       box-shadow: 0 10px 24px rgba(0,0,0,0.05);
-      max-width: 600px;
+      max-width: 700px;
     }
 
     button { border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: 600; cursor: pointer; transition: 0.2s; }
@@ -210,7 +216,6 @@
     document.getElementById("partnerName").textContent = partner;
     document.getElementById("dogName").textContent = dog;
 
-    // Heart count fixed to 24 (20% increase from 20) with smoother float
     const bg = document.getElementById('heartsBg');
     for (let i = 0; i < 24; i++) {
       const heart = document.createElement('div');
