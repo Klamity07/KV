@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy Valentine’s Day ❤️</title>
+  <link rel="icon" href="https://fav.farm/❤️" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  
   <style>
     :root {
       --bg: #fff5f7;
@@ -16,344 +20,232 @@
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       color: var(--text);
       background: radial-gradient(1200px 600px at 10% -10%, #ffe4e6, transparent),
                   radial-gradient(1200px 600px at 110% 10%, #ffd1dc, transparent),
                   var(--bg);
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
+      height: 100vh;
+      overflow: hidden; 
     }
 
-    .container {
-      width: min(960px, 92vw);
-      margin: 2rem auto 3rem;
-      display: grid;
-      gap: 1.5rem;
+    .calligraphy {
+      font-family: 'Great Vibes', cursive;
+      color: #be123c;
+      font-weight: normal;
     }
 
-    header {
-      text-align: center;
-      padding: 2rem 1.5rem 1.5rem;
-      background: linear-gradient(135deg, #fff, #fff7f9);
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      position: relative;
-      overflow: hidden;
+    #mainContent {
+      visibility: hidden; 
+      scroll-snap-type: y mandatory;
+      height: 100vh;
+      overflow-y: scroll;
+      filter: blur(5px); 
+      transition: filter 1s ease, visibility 0.3s ease;
     }
 
-    header h1 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      margin: 0.25rem 0 0.5rem;
-      letter-spacing: 0.02em;
-    }
-
-    header p {
-      margin: 0.25rem 0 0;
-      color: var(--muted);
-    }
-
-    .hearts {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.25;
-    }
-
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 18px;
-      background: var(--accent);
-      transform: rotate(45deg);
-      animation: float 12s linear infinite;
-      border-radius: 2px;
-    }
-
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      background: var(--accent);
-      border-radius: 50%;
-    }
-
-    /* Make one lobe slightly larger for a more organic heart */
-    .heart::before {
-      width: 22px;
-      height: 22px;
-      left: -11px;
-      top: 0;
-    }
-
-    .heart::after {
-      width: 18px;
-      height: 18px;
-      top: -9px;
-      left: 0;
-    }
-
-    .heart::before { left: -10px; }
-    .heart::after { top: -10px; }
-
-    @keyframes float {
-      from { transform: translateY(120%) rotate(45deg); opacity: 0; }
-      10% { opacity: 0.6; }
-      to { transform: translateY(-140%) rotate(45deg); opacity: 0; }
-    }
-      10% { opacity: 0.6; }
-      to { transform: translateY(-140%) rotate(45deg); opacity: 0; }
-    }
-
-    .grid {
-      display: grid;
-      gap: 1.5rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .card {
-      background: var(--card);
-      border-radius: 1.25rem;
-      padding: 1.25rem;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-      display: grid;
-      gap: 0.75rem;
-    }
-
-    .card h2 {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-
-    .photo {
-      border-radius: 1rem;
-      overflow: hidden;
-      aspect-ratio: 4 / 3;
-      background: linear-gradient(135deg, #fee2e2, #fde68a);
-      display: grid;
-      place-items: center;
-      color: #7c2d12;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .photo img {
+    .section {
+      height: 100vh;
       width: 100%;
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .hero-container {
+      background: white;
+      padding: 3.5rem;
+      border-radius: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .hero-img {
+      width: 250px;
+      height: 250px;
       object-fit: cover;
-      display: block;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
     }
 
-    .pill {
-      display: inline-block;
-      background: #ffe4e6;
-      color: #9f1239;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      width: fit-content;
+    h1 { font-size: clamp(2rem, 8vw, 3.5rem); margin: 0.5rem 0; font-weight: 300; }
+
+    .scroll-arrow {
+      position: absolute;
+      bottom: 40px;
+      font-size: 3rem;
+      cursor: pointer;
+      color: var(--accent);
+      animation: bounce 2s infinite;
     }
 
-    .cta {
-      margin-top: 0.5rem;
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-15px); }
+      60% { transform: translateY(-7px); }
+    }
+
+    /* --- UPDATED POLAROIDS (20% Larger) --- */
+    .polaroid-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
       justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
     }
 
-    button {
-      border: 0;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      padding: 0.6rem 1rem;
-      border-radius: 999px;
-      font-weight: 600;
+    .polaroid {
+      background: #fff;
+      padding: 1rem 1rem 3.5rem;
+      border-radius: 0.25rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+      width: 240px; /* Increased from 200px */
+      filter: grayscale(100%);
       cursor: pointer;
-      box-shadow: 0 6px 14px rgba(225,29,72,0.35);
-      transition: transform 0.08s ease, box-shadow 0.08s ease;
     }
 
-    button:active {
-      transform: translateY(1px);
-      box-shadow: 0 4px 10px rgba(225,29,72,0.35);
+    /* Hover effect: Scale up and tilt slightly to the right */
+    .polaroid:hover { 
+      filter: grayscale(0%); 
+      transform: scale(1.1) rotate(2deg) !important; 
+      z-index: 50; 
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
     }
 
-    footer {
+    .photo { width: 100%; aspect-ratio: 1/1; background: #eee; display: grid; place-items: center; overflow: hidden; }
+    .caption { margin-top: 1rem; text-align: center; font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: #444; }
+    
+    /* Static rotations */
+    .p1 { transform: rotate(-4deg); }
+    .p2 { transform: rotate(3deg); }
+    .p3 { transform: rotate(-2deg); }
+    .p4 { transform: rotate(5deg); }
+    .p5 { transform: rotate(-5deg); }
+
+    .content-card {
+      background: rgba(255, 255, 255, 0.35); 
+      padding: 3rem;
+      border-radius: 2rem;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.85rem;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.05);
+      max-width: 600px;
     }
 
-    .note {
-      font-style: italic;
-      color: #9f1239;
+    button { border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    button:hover { transform: scale(1.05); }
+
+    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1000; transition: opacity 0.5s ease; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(255, 245, 247, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+    .modal-card { position: relative; background: white; padding: 2.5rem; border-radius: 1.5rem; text-align: center; width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    #noBtn { background: #94a3b8; transition: all 0.2s ease; z-index: 1001; }
+
+    .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+    .heart { position: absolute; color: var(--accent); opacity: 0.3; animation: floatUp 10s linear infinite; }
+    @keyframes floatUp {
+      from { transform: translateY(110vh) rotate(0deg); opacity: 1; }
+      to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="hearts" aria-hidden="true"></div>
-      <span class="pill">Valentine’s Day</span>
-      <h1>For <span id="partnerName">Your Favorite Human</span> & <span id="dogName">Your Favorite Dog</span> ❤️</h1>
-      <p>A tiny website made with love.</p>
-      <div class="cta">
-        <button id="confettiBtn">Send Some Love</button>
-      </div>
-    </header>
 
-    <section class="grid">
-      <div class="card">
-        <span class="pill">You + Me</span>
-        <h2>Our Favorite Memory</h2>
-        <div class="photo">
-          <!-- Replace this placeholder with an <img src="..."> of you two -->
-          <span>Photo of You Two</span>
-        </div>
-        <p class="note">“Every moment with you is my favorite.”</p>
-      </div>
+  <div class="hearts-bg" id="heartsBg"></div>
 
-      <div class="card">
-        <span class="pill">Best Dog Ever</span>
-        <h2>Our Pup</h2>
-        <div class="photo">
-          <!-- Replace this placeholder with an <img src="..."> of your dog -->
-          <span>Photo of Your Dog</span>
-        </div>
-        <p class="note">“Thanks for all the walks, cuddles, and chaos.”</p>
-      </div>
-
-      <div class="card">
-        <span class="pill">Why I Love You</span>
-        <h2>Three Little Things</h2>
-        <ul style="list-style: none; padding: 0;">
-          <li style="margin-bottom: 0.5rem;">✨ You make ordinary days feel like a movie.</li>
-          <li style="margin-bottom: 0.5rem;">🐶 You're the best "co-parent" to Buddy.</li>
-          <li style="margin-bottom: 0.5rem;">☕ You always know exactly how I like my coffee.</li>
-        </ul>
-        <p class="note">(Okay, that last one is a big thing.)</p>
-      </div>
-    </section>
-
-    <footer>
-      <p>Made with ❤️ — edit this file to add names, photos, and your own message.</p>
-    </footer>
-  </div>
-
-  <script>
-    // Personalize these two lines
-    const partner = "Alex";  // <-- Change to your partner's name
-    const dog = "Buddy";     // <-- Change to your dog's name
-
-    document.getElementById("partnerName").textContent = partner;
-    document.getElementById("dogName").textContent = dog;
-
-    // Floating hearts background
-    const heartsContainer = document.querySelector(".hearts");
-    for (let i = 0; i < 24; i++) {
-      const h = document.createElement("div");
-      h.className = "heart";
-      const size = 10 + Math.random() * 16;
-      h.style.width = size + "px";
-      h.style.height = size + "px";
-      h.style.left = Math.random() * 100 + "%";
-      h.style.animationDelay = (-Math.random() * 12) + "s";
-      h.style.animationDuration = (8 + Math.random() * 10) + "s";
-      heartsContainer.appendChild(h);
-    }
-
-    // Simple confetti / hearts burst (spawn in bottom 1/4 of the screen)
-    document.getElementById("confettiBtn").addEventListener("click", () => {
-      const viewportHeight = window.innerHeight;
-      const bottomQuarterTop = viewportHeight * 0.75; // start of bottom 25%
-
-      for (let i = 0; i < 40; i++) {
-        const h = document.createElement("div");
-        h.className = "heart";
-        const size = 8 + Math.random() * 12;
-        h.style.width = size + "px";
-        h.style.height = (size - 2) + "px";
-
-        // Random horizontal position
-        h.style.left = Math.random() * 100 + "%";
-
-        // Random vertical position within bottom 25% of the viewport
-        const y = bottomQuarterTop + Math.random() * (viewportHeight * 0.25);
-        h.style.top = y + "px";
-
-        h.style.position = "fixed";
-        h.style.animation = "float 4s ease-out forwards";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 4000);
-      }
-    });
-  </script>
-
-  <!-- Valentine Popup -->
-  <div id="valentineModal" class="modal" aria-hidden="true">
+  <div id="valentineModal" class="modal">
     <div class="modal-backdrop"></div>
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <h2 id="modalTitle">Will you be my Valentine? 💖</h2>
-      <p>Click yes to continue…</p>
-      <div class="modal-actions">
-        <button id="yesBtn">Yes!</button>
+    <div class="modal-card">
+      <h2 class="calligraphy" style="font-size: 2.2rem;">Will you be my Valentine?</h2>
+      <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; position: relative; height: 50px;">
+        <button id="yesBtn">YES! ❤️</button>
+        <button id="noBtn">No</button>
       </div>
     </div>
   </div>
 
-  <style>
-    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 50; }
-    .modal[hidden] { display: none; }
-    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(2px); }
-    .modal-card {
-      position: relative;
-      background: #fff;
-      border-radius: 1.25rem;
-      padding: 1.25rem 1.5rem 1.5rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      text-align: center;
-      max-width: 90vw;
-      width: 420px;
-      animation: pop 0.25s ease-out both;
-    }
-    .modal-card h2 { margin-top: 0; }
-    .modal-actions { margin-top: 1rem; display: flex; justify-content: center; }
-    @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  </style>
+  <main id="mainContent">
+    <header class="section">
+      <div class="hero-container">
+        <img src="https://via.placeholder.com/250" alt="Trang and Lumi" class="hero-img">
+        <h1>For <span id="partnerName" class="calligraphy">Trang</span> & <span id="dogName" class="calligraphy">Lumi</span> ❤️</h1>
+        <p>I made this for you.</p>
+      </div>
+      <div class="scroll-arrow" onclick="document.getElementById('section2').scrollIntoView()">⌄</div>
+    </header>
+
+    <section id="section2" class="section">
+      <div class="polaroid-container">
+        <div class="polaroid p1"><div class="photo"><span>Photo 1</span></div><div class="caption">The Beginning ✨</div></div>
+        <div class="polaroid p2"><div class="photo"><span>Photo 2</span></div><div class="caption">Laughs 🎞️</div></div>
+        <div class="polaroid p3"><div class="photo"><span>Photo 3</span></div><div class="caption">Us ❤️</div></div>
+        <div class="polaroid p4"><div class="photo"><span>Photo 4</span></div><div class="caption">Adventures 🏔️</div></div>
+        <div class="polaroid p5"><div class="photo"><span>Photo 5</span></div><div class="caption">Forever? ♾️</div></div>
+      </div>
+      <div class="scroll-arrow" style="animation-delay: 1s;" onclick="document.getElementById('section3').scrollIntoView()">⌄</div>
+    </section>
+
+    <section id="section3" class="section">
+      <div class="content-card">
+        <h2 class="calligraphy" style="font-size: 2.8rem;">Why you're the one...</h2>
+        <p>You make every day better just by being in it. You're the heart of our home.</p>
+      </div>
+    </section>
+  </main>
 
   <script>
-    // Show modal on first load
-    const modal = document.getElementById('valentineModal');
-    const yesBtn = document.getElementById('yesBtn');
+    const partner = "Trang"; 
+    const dog = "Lumi";
+    document.getElementById("partnerName").textContent = partner;
+    document.getElementById("dogName").textContent = dog;
 
-    function showModal() {
-      modal.removeAttribute('hidden');
-      modal.setAttribute('aria-hidden', 'false');
+    // Heart count fixed to 24 (20% increase from 20) with smoother float
+    const bg = document.getElementById('heartsBg');
+    for (let i = 0; i < 24; i++) {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      heart.style.animationDelay = Math.random() * 10 + 's';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      bg.appendChild(heart);
     }
 
-    function hideModal() {
-      modal.setAttribute('hidden', '');
-      modal.setAttribute('aria-hidden', 'true');
-    }
-
-    // Display immediately on page load
-    window.addEventListener('load', showModal);
-
-    // Close when clicking Yes
-    yesBtn.addEventListener('click', () => {
-      hideModal();
-      // optional: trigger a little celebration
-      const btn = document.getElementById('confettiBtn');
-      if (btn) btn.click();
+    const noBtn = document.getElementById('noBtn');
+    noBtn.addEventListener('mouseover', () => {
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+      noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
     });
+
+    const yesBtn = document.getElementById('yesBtn');
+    const modal = document.getElementById('valentineModal');
+    const mainContent = document.getElementById('mainContent');
+
+    yesBtn.addEventListener('click', () => {
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        mainContent.style.visibility = 'visible';
+        mainContent.style.filter = 'blur(0px)';
+        document.body.style.overflow = 'hidden'; 
+      }, 500);
+      alert("Yay! I knew you'd say yes! ❤️");
+    });
+
+    window.onload = () => { mainContent.style.visibility = 'visible'; };
   </script>
 </body>
 </html>
