@@ -227,7 +227,6 @@
       padding: 12px 22px;
       border-radius: 12px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      /* Use Dancing Script for better readability */
       font-family: 'Dancing Script', cursive;
       font-weight: 700;
       font-size: 1.4rem;
@@ -258,13 +257,11 @@
 
     button { border: 0; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: 600; cursor: pointer; transition: 0.2s; }
 
-    /* --- PULSE EFFECT & MUSIC PLAYER --- */
-    @keyframes heartBeat {
-      0% { transform: scale(1); }
-      14% { transform: scale(1.3); }
-      28% { transform: scale(1); }
-      42% { transform: scale(1.3); }
-      70% { transform: scale(1); }
+    /* --- VINYL RECORD MUSIC PLAYER --- */
+    /* New Spin Animation */
+    @keyframes spinRecord {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .music-player {
@@ -289,11 +286,17 @@
       box-shadow: 0 0 20px rgba(225, 29, 72, 0.3);
       border-color: var(--accent-2);
     }
+    
+    /* Styles for the new vinyl record icon container */
+    .vinyl-icon-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    .music-player.playing .pulse-heart {
-      display: inline-block;
-      animation: heartBeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-      color: var(--accent);
+    /* Apply spin animation only when playing */
+    .music-player.playing .vinyl-icon-container {
+      animation: spinRecord 3s linear infinite;
     }
 
     .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
@@ -383,7 +386,10 @@
   </main>
 
   <div class="music-player" id="musicToggle">
-    <span class="pulse-heart">❤️</span>
+    <span class="vinyl-icon-container">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="11" fill="#374151"/> <circle cx="12" cy="12" r="4" fill="#e11d48"/> <circle cx="12" cy="12" r="1.5" fill="#ffffff"/> </svg>
+    </span>
     <span style="font-size: 0.9rem; font-weight: 600; color: #be123c;">Our Song</span>
   </div>
 
