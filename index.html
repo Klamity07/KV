@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy Valentine’s Day ❤️</title>
   <link rel="icon" href="https://fav.farm/❤️" />
-  
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
   
   <style>
@@ -19,7 +18,6 @@
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -33,12 +31,67 @@
       overflow: hidden; 
     }
 
-    .calligraphy {
-      font-family: 'Great Vibes', cursive;
-      color: #be123c;
-      font-weight: normal;
+    .calligraphy { font-family: 'Great Vibes', cursive; color: #be123c; font-weight: normal; }
+
+    /* --- ENVELOPE STYLES --- */
+    #envelopeWrapper {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+      background: var(--bg);
+      transition: opacity 1s ease, visibility 1s;
     }
 
+    .envelope {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #f9d5da;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    .envelope:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 2;
+      border-top: 110px solid #f2bbc3;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+    }
+
+    .envelope.open:before { transform: rotateX(180deg); z-index: 0; }
+
+    .envelope:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 100px solid #f9d5da;
+      border-left: 150px solid #f4c2c9;
+      border-right: 150px solid #f4c2c9;
+      z-index: 2;
+    }
+
+    .heart-seal {
+      position: absolute;
+      top: 90px;
+      left: 135px;
+      font-size: 30px;
+      z-index: 3;
+      transition: opacity 0.3s;
+    }
+
+    .envelope.open .heart-seal { opacity: 0; }
+
+    /* --- MAIN CONTENT --- */
     #mainContent {
       visibility: hidden; 
       scroll-snap-type: y mandatory;
@@ -103,8 +156,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      /* Negative gap creates the side-overlap effect */
-      gap: -20px; 
+      gap: 40px 0px; 
       max-width: 1400px;
       padding: 4rem 2rem;
     }
@@ -114,16 +166,18 @@
       padding: 1rem 1rem 4rem;
       border-radius: 0.25rem;
       box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease, z-index 0s;
-      width: 260px; /* Slightly smaller to fit more comfortably */
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease, opacity 0.4s ease, z-index 0s;
+      width: 260px;
       filter: grayscale(100%);
+      opacity: 0.4; 
       cursor: pointer;
       position: relative;
-      margin: -15px; /* Pulls them closer together for overlap */
+      margin: 0 -20px; 
     }
 
     .polaroid:hover { 
       filter: grayscale(0%); 
+      opacity: 1; 
       transform: scale(1.15) rotate(0deg) !important; 
       z-index: 100; 
       box-shadow: 0 20px 45px rgba(0,0,0,0.2);
@@ -140,21 +194,13 @@
       color: #444; 
     }
     
-    /* Rotation Variations */
-    .p1 { transform: rotate(-4deg); }
-    .p2 { transform: rotate(3deg); }
-    .p3 { transform: rotate(-2deg); }
-    .p4 { transform: rotate(5deg); }
-    .p5 { transform: rotate(-5deg); }
-    .p6 { transform: rotate(4deg); }
-    .p7 { transform: rotate(-3deg); }
-    .p8 { transform: rotate(2deg); }
-    .p9 { transform: rotate(-6deg); }
-    .p10 { transform: rotate(4deg); }
-    .p11 { transform: rotate(-2deg); }
-    .p12 { transform: rotate(6deg); }
-    .p13 { transform: rotate(-4deg); }
-    .p14 { transform: rotate(3deg); }
+    .p1 { transform: rotate(-4deg); } .p2 { transform: rotate(3deg); }
+    .p3 { transform: rotate(-2deg); } .p4 { transform: rotate(5deg); }
+    .p5 { transform: rotate(-5deg); } .p6 { transform: rotate(4deg); }
+    .p7 { transform: rotate(-3deg); } .p8 { transform: rotate(2deg); }
+    .p9 { transform: rotate(-6deg); } .p10 { transform: rotate(4deg); }
+    .p11 { transform: rotate(-2deg); } .p12 { transform: rotate(6deg); }
+    .p13 { transform: rotate(-4deg); } .p14 { transform: rotate(3deg); }
 
     /* --- SECTION 3: REASONS --- */
     .content-card {
@@ -202,12 +248,9 @@
       to { transform: translateY(-5px) rotate(2deg); }
     }
 
-    .reason-note:nth-child(even) { animation-delay: 1s; }
-    .reason-note:nth-child(3n) { animation-delay: 2s; }
-
     /* --- MODAL --- */
-    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1000; transition: opacity 0.5s ease; }
-    .modal-backdrop { position: absolute; inset: 0; background: rgba(255, 245, 247, 0.4); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
+    .modal { position: fixed; inset: 0; display: none; place-items: center; z-index: 1000; transition: opacity 0.5s ease; opacity: 0; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(255, 245, 247, 0.4); backdrop-filter: blur(15px); }
     .modal-card { position: relative; background: white; padding: 2.5rem; border-radius: 1.5rem; text-align: center; width: 350px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
     #noBtn { background: #94a3b8; transition: all 0.2s ease; z-index: 1001; }
 
@@ -219,11 +262,38 @@
       from { transform: translateY(110vh) rotate(0deg); opacity: 1; }
       to { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
     }
+
+    .music-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2000;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #ffe4e6;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      visibility: hidden;
+    }
+
+    #yt-player { display: none; }
   </style>
 </head>
 <body>
 
   <div class="hearts-bg" id="heartsBg"></div>
+
+  <div id="envelopeWrapper">
+    <div class="envelope" id="mainEnvelope">
+      <div class="heart-seal">❤️</div>
+      <div style="position: absolute; bottom: -60px; width: 100%; text-align: center;" class="calligraphy">Click to open, Trang...</div>
+    </div>
+  </div>
 
   <div id="valentineModal" class="modal">
     <div class="modal-backdrop"></div>
@@ -266,11 +336,9 @@
       <div class="scroll-arrow" style="animation-delay: 1s;" onclick="document.getElementById('section3').scrollIntoView()">⌄</div>
     </section>
 
-    <section id="section3" class="section" style="height: auto; min-height: 100vh;">
+    <section id="section3" class="section">
       <div class="content-card">
         <h2 class="calligraphy" style="font-size: 3.5rem;">Why you're the one...</h2>
-        <p style="margin-bottom: 2rem; font-size: 1.1rem; color: var(--muted);">You're the heart of our home.</p>
-        
         <div class="reasons-container">
           <div class="reason-note p1">Your infectious laugh.</div>
           <div class="reason-note p2">How you care for Lumi.</div>
@@ -281,23 +349,70 @@
           <div class="reason-note p7">Our late-night talks.</div>
           <div class="reason-note p8">Your silly morning energy.</div>
           <div class="reason-note p9">How you make me feel safe.</div>
-          <div class="reason-note p10">Your passion for your dreams.</div>
-          <div class="reason-note p1">How you handle my bad days.</div>
-          <div class="reason-note p2">The way you love so deeply.</div>
-          <div class="reason-note p3">Your unwavering support.</div>
-          <div class="reason-note p4">Simply being you, Trang.</div>
+          <div class="reason-note p10">The way you chase your dreams.</div>
+          <div class="reason-note p11">How you handle my bad days.</div>
+          <div class="reason-note p12">Your taste in music and movies.</div>
+          <div class="reason-note p13">Your unwavering support.</div>
+          <div class="reason-note p14">Simply being you, Trang.</div>
         </div>
         <p class="calligraphy" style="margin-top: 50px; font-size: 2.2rem;">Forever yours ❤️</p>
       </div>
     </section>
   </main>
 
-  <script>
-    const partner = "Trang"; 
-    const dog = "Lumi";
-    document.getElementById("partnerName").textContent = partner;
-    document.getElementById("dogName").textContent = dog;
+  <div class="music-player" id="musicToggle">
+    <span style="color: var(--accent);">❤️</span>
+    <span style="font-size: 0.9rem; font-weight: 600; color: #be123c;">Our Song</span>
+  </div>
 
+  <iframe id="yt-player" src="https://www.youtube.com/embed/1GFpjG_5ZV4?enablejsapi=1&loop=1&playlist=1GFpjG_5ZV4" allow="autoplay"></iframe>
+
+  <script>
+    const envelope = document.getElementById('mainEnvelope');
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const modal = document.getElementById('valentineModal');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    // 1. Envelope Opening
+    envelope.addEventListener('click', () => {
+      envelope.classList.add('open');
+      setTimeout(() => {
+        envelopeWrapper.style.opacity = '0';
+        setTimeout(() => {
+          envelopeWrapper.style.display = 'none';
+          modal.style.display = 'grid';
+          setTimeout(() => modal.style.opacity = '1', 10);
+        }, 1000);
+      }, 800);
+    });
+
+    // 2. Logic for Buttons
+    noBtn.addEventListener('mouseover', () => {
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+      noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+    });
+
+    yesBtn.addEventListener('click', () => {
+      modal.style.opacity = '0';
+      setTimeout(() => {
+        modal.style.display = 'none';
+        document.getElementById('mainContent').style.visibility = 'visible';
+        document.getElementById('mainContent').style.filter = 'blur(0px)';
+        document.getElementById('musicToggle').style.visibility = 'visible';
+        document.body.style.overflowY = 'auto';
+      }, 500);
+      controlMusic('play');
+      alert("Yay! Happy Valentine's Day! ❤️");
+    });
+
+    function controlMusic(command) {
+      const cmd = command === 'play' ? '{"event":"command","func":"playVideo","args":""}' : '{"event":"command","func":"pauseVideo","args":""}';
+      document.getElementById('yt-player').contentWindow.postMessage(cmd, '*');
+    }
+
+    // 3. Floating Hearts
     const bg = document.getElementById('heartsBg');
     for (let i = 0; i < 24; i++) {
       const heart = document.createElement('div');
@@ -309,104 +424,6 @@
       heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
       bg.appendChild(heart);
     }
-
-    const noBtn = document.getElementById('noBtn');
-    noBtn.addEventListener('mouseover', () => {
-      noBtn.style.position = 'fixed';
-      noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
-      noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
-    });
-
-    const yesBtn = document.getElementById('yesBtn');
-    yesBtn.addEventListener('click', () => {
-      document.getElementById('valentineModal').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('valentineModal').style.display = 'none';
-        document.getElementById('mainContent').style.visibility = 'visible';
-        document.getElementById('mainContent').style.filter = 'blur(0px)';
-        document.body.style.overflow = 'hidden'; 
-      }, 500);
-      alert("Yay! I knew you'd say yes! ❤️");
-    });
-
-    window.onload = () => { document.getElementById('mainContent').style.visibility = 'visible'; };
   </script>
-  <style>
-  .music-player {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 2000;
-    background: white;
-    padding: 10px 15px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid #ffe4e6;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .music-player:hover {
-    transform: scale(1.05);
-  }
-
-  .pulse-heart {
-    color: var(--accent);
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-
-  @keyframes heartbeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.3); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.15); }
-    60% { transform: scale(1); }
-  }
-
-  #yt-player {
-    display: none; /* Keeps the video hidden */
-  }
-</style>
-
-<div class="music-player" id="musicToggle">
-  <span class="pulse-heart">❤️</span>
-  <span style="font-size: 0.9rem; font-weight: 600; color: #be123c;">Our Song</span>
-</div>
-
-<iframe id="yt-player" 
-        src="https://www.youtube.com/embed/1GFpjG_5ZV4&list=RD1GFpjG_5ZV4?enablejsapi=1&loop=1&playlist=1GFpjG_5ZV4&list=RD1GFpjG_5ZV4" 
-        allow="autoplay">
-</iframe>
-
-<script>
-  let isPlaying = false;
-  const playerIframe = document.getElementById('yt-player');
-  const musicToggle = document.getElementById('musicToggle');
-
-  function controlMusic(command) {
-    const cmd = command === 'play' ? '{"event":"command","func":"playVideo","args":""}' : '{"event":"command","func":"pauseVideo","args":""}';
-    playerIframe.contentWindow.postMessage(cmd, '*');
-  }
-
-  musicToggle.addEventListener('click', () => {
-    if (isPlaying) {
-      controlMusic('pause');
-      isPlaying = false;
-    } else {
-      controlMusic('play');
-      isPlaying = true;
-    }
-  });
-
-  // Update your existing yesBtn listener to include:
-  yesBtn.addEventListener('click', () => {
-    // ... your existing code ...
-    controlMusic('play'); 
-    isPlaying = true;
-  });
-</script>
 </body>
 </html>
